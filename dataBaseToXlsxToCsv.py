@@ -35,17 +35,16 @@ def salvar_firestore_em_xlsx():
     nomes_na_planilha = set(sheet.cell(row=i, column=2).value for i in range(2, sheet.max_row + 1))
 
     for aluno in alunos:
-        classe = aluno.get("className")
-        name = aluno.get("fullName")
+        classe = aluno.get("className").upper()
+        name = aluno.get("fullName").upper()
         qr_code = aluno.get("qrCode")
         ra = aluno.get("ra")
-        email = aluno.get("email")
-        respName = aluno.get("respName") 
+        email = aluno.get("email").lower()
 
         # Verifique se o name do aluno já existe na planilha antes de adicioná-lo
         if name not in nomes_na_planilha:
             # Adicione os dados do aluno à planilha
-            nova_linha = [classe, name, ra, qr_code, email, respName]# quando tiver os campos email e respName no banco, não esquecer de adicionar as variaveis nesta linha
+            nova_linha = [classe, name, ra, qr_code, email]# quando tiver os campos email e respName no banco, não esquecer de adicionar as variaveis nesta linha
             sheet.append(nova_linha)
             nomes_na_planilha.add(name)
 
